@@ -1,7 +1,8 @@
 add_library(crt
+    limits.c
     stddef.c
     stdint.c
-    stdlib.c
+    string.c
 )
 
 target_include_directories(crt PUBLIC
