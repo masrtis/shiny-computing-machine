@@ -1,10 +1,21 @@
-add_library(kernel_build_options INTERFACE)
+add_library(kernel_c_build_options INTERFACE)
 
-target_compile_options(kernel_build_options INTERFACE
+target_compile_options(kernel_c_build_options INTERFACE
     -ffreestanding
     -Wall
     -Wextra
     -Werror
+)
+
+add_library(kernel_cxx_build_options INTERFACE)
+
+target_compile_options(kernel_cxx_build_options INTERFACE
+    -fno-exceptions
+    -fno-rtti
+)
+
+target_link_libraries(kernel_cxx_build_options INTERFACE
+    kernel_c_build_options
 )
 
 add_subdirectory(crt)
@@ -24,5 +35,5 @@ target_link_libraries(kernel PUBLIC
 )
 
 target_link_libraries(kernel PRIVATE
-    kernel_build_options
+    kernel_cxx_build_options
 )

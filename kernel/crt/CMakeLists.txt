@@ -7,5 +7,5 @@ target_include_directories(crt PUBLIC
 )
 
 target_link_libraries(crt PRIVATE
-    kernel_build_options
+    kernel_c_build_options
 )

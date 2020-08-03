@@ -20,5 +20,5 @@ target_link_libraries(io PUBLIC
 )
 
 target_link_libraries(io PRIVATE
-    kernel_build_options
+    kernel_cxx_build_options
 )
