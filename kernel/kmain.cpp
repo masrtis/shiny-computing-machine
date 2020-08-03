@@ -1,6 +1,6 @@
 #include "framebuffer.h"
 
-int kmain(void)
+extern "C" int kmain()
 {
     framebuffer_clear();
 

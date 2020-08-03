@@ -1,5 +1,5 @@
 add_library(io
-    framebuffer.c
+    framebuffer.cpp
 )
 
 add_library(io_asm

@@ -6,6 +6,6 @@
  * @param port The I/O port address to send data to
  * @param data Data to send to port
  */
-void outb(unsigned short port, unsigned char data);
+extern "C" void outb(unsigned short port, unsigned char data);
 
 #endif // INCLUDED_IO_H_

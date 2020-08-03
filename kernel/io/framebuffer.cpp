@@ -54,7 +54,7 @@ typedef struct framebuffer_data
  *  Globals
  */
 
-static framebuffer_data framebuffer_cpu = { 0 };
+static framebuffer_data framebuffer_cpu = { {0}, {0, 0} };
 
 /*
  *  Local functions
@@ -141,18 +141,18 @@ void framebuffer_move_cursor(size_t row, size_t column, uint8_t fgColor)
     outb(FRAMEBUFFER_DATA_PORT, position & LOW_BYTE_MASK);
 }
 
-void framebuffer_clear(void)
+void framebuffer_clear()
 {
     memset(framebuffer, 0, sizeof(framebuffer_cpu));
     memset(&framebuffer_cpu, 0, sizeof(framebuffer_cpu));
 }
 
-void framebuffer_write(char* string)
+void framebuffer_write(const char* string)
 {
     framebuffer_write_color(string, FRAMEBUFFER_LIGHT_GRAY, FRAMEBUFFER_BLACK);
 }
 
-void framebuffer_write_color(char* string, uint8_t fgColor, uint8_t bgColor)
+void framebuffer_write_color(const char* string, uint8_t fgColor, uint8_t bgColor)
 {
     const size_t len = strlen(string);
 

@@ -11,7 +11,7 @@ add_subdirectory(crt)
 add_subdirectory(io)
 
 add_library(kernel
-    kmain.c
+    kmain.cpp
 )
 
 target_link_options(kernel PUBLIC

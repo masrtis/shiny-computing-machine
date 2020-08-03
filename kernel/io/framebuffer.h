@@ -47,14 +47,14 @@ void framebuffer_move_cursor(size_t row, size_t column, uint8_t fgColor);
 /*
  * framebuffer_clear: clears framebuffer memory
  */
-void framebuffer_clear(void);
+void framebuffer_clear();
 
 /*
  * framebuffer_write: writes a null terminated C style string to the framebuffer. Foreground color will be light gray, background color black.
  * 
  * @param string Buffer of characters to write to the screen
  */
-void framebuffer_write(char* string);
+void framebuffer_write(const char* string);
 
 /*
  * framebuffer_write_color: writes a null terminated C style string to the framebuffer with specified foreground and background color
@@ -63,6 +63,6 @@ void framebuffer_write(char* string);
  * @param fgColor Foreground color, specified as a framebuffer_color_t
  * @param bgColor Background color, specified as a framebuffer_color_t
  */
-void framebuffer_write_color(char* string, uint8_t fgColor, uint8_t bgColor); 
+void framebuffer_write_color(const char* string, uint8_t fgColor, uint8_t bgColor);
 
 #endif // INCLUDED_FRAMEBUFFER_H_
