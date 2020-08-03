@@ -1,7 +1,4 @@
 add_library(crt
-    limits.c
-    stddef.c
-    stdint.c
     string.c
 )
 

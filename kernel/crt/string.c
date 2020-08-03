@@ -1,7 +1,27 @@
 #include "string.h"
 
-#include "stddef.h"
-#include "stdint.h"
+#include <stddef.h>
+#include <stdint.h>
+
+int memcmp(const void* lhs, const void* rhs, size_t count)
+{
+    const uint8_t* left = (uint8_t*)lhs;
+    const uint8_t* right = (uint8_t*)rhs;
+    while (count-- > 0)
+    {
+        if (*left > *right)
+        {
+            return 1;
+        }
+
+        if (*left < *right)
+        {
+            return -1;
+        }
+    }
+
+    return 0;
+}
 
 void* memcpy(void* restrict destination, const void* restrict source, size_t count)
 {

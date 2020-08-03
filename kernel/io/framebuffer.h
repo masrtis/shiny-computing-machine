@@ -1,8 +1,8 @@
 #ifndef INCLUDED_FRAMEBUFFER_H_
 #define INCLUDED_FRAMEBUFFER_H_
 
-#include "stddef.h"
-#include "stdint.h"
+#include <stddef.h>
+#include <stdint.h>
 
 typedef enum framebuffer_color
 {

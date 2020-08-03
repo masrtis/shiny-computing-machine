@@ -1,8 +1,9 @@
 #ifndef INCLUDED_STRING_H_
 #define INCLUDED_STRING_H_
 
-#include "stddef.h"
+#include <stddef.h>
 
+int memcmp(const void* lhs, const void* rhs, size_t count);
 void* memcpy(void* restrict destination, const void* restrict source, size_t count);
 void* memmove(void* destination, const void* source, size_t count);
 void* memset(void* destination, int byte, size_t count);
