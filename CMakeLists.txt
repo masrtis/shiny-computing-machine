@@ -1,10 +1,6 @@
 cmake_minimum_required(VERSION 3.13 FATAL_ERROR)
 
-# Set up NASM to build 32 bit elf format and use ld for linking
-# This should be done before enabling ASM_NASM with project() to ensure CMake does not detect the pointer size as 64 bit on 64 bit OSes
-set(CMAKE_ASM_NASM_OBJECT_FORMAT elf)
-set(CMAKE_ASM_NASM_LINK_EXECUTABLE "$ENV{HOME}/opt/cross/bin/i686-elf-ld <FLAGS> <CMAKE_ASM_NASM_LINK_FLAGS> <LINK_FLAGS> <OBJECTS> -o <TARGET> <LINK_LIBRARIES>")
-
+# Set C and C++ compilers to the cross compiler to with appropriate flags for building the test programs
 set(CMAKE_C_COMPILER $ENV{HOME}/opt/cross/bin/i686-elf-gcc)
 set(CMAKE_C_FLAGS "-ffreestanding -nostdlib -nostartfiles")
 set(CMAKE_CXX_COMPILER $ENV{HOME}/opt/cross/bin/i686-elf-g++)
