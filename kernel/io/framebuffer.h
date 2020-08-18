@@ -25,7 +25,7 @@ enum class vga_color : uint8_t
     Light_Cyan = 11,
     Light_Red = 12,
     Light_Magenta = 13,
-    Light_Brown = 14,
+    Yellow = 14,
     White = 15
 };
 
@@ -53,20 +53,13 @@ void move_cursor(size_t row, size_t column, vga_color fgColor);
 void clear();
 
 /*
- * write: writes a null terminated C style string to the frame buffer. Foreground color will be light gray, background color black.
- * 
- * @param string Buffer of characters to display on the screen
- */
-void write(const char* string);
-
-/*
- * framebuffer_write_color: writes a null terminated C style string to the framebuffer with specified foreground and background color
+ * write: writes a null terminated C style string to the framebuffer with specified foreground and background color
  * 
  * @param string Buffer of characters to write to the screen
  * @param fgColor Foreground color, specified as a vga_color
  * @param bgColor Background color, specified as a vga_color
  */
-void write_color(const char* string, vga_color fgColor, vga_color bgColor);
+void write(const char* string, vga_color fgColor, vga_color bgColor);
 
 }
 

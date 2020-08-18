@@ -202,12 +202,7 @@ void clear()
     cpu_framebuffer.clear();
 }
 
-void write(const char* string)
-{
-    write_color(string, vga_color::Light_Gray, vga_color::Black);
-}
-
-void write_color(const char* string, vga_color fgColor, vga_color bgColor)
+void write(const char* string, vga_color fgColor, vga_color bgColor)
 {
     const auto len = strlen(string);
 

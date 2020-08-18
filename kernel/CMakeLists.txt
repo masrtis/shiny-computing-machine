@@ -23,14 +23,19 @@ target_link_libraries(kernel_cxx_build_options INTERFACE
     kernel_c_build_options
 )
 
+# Level 0
 add_subdirectory(crt)
 add_subdirectory(io)
+
+# Level 1
+add_subdirectory(debug_log)
 
 add_library(kernel
     kmain.cpp
 )
 
 target_link_libraries(kernel PUBLIC
+    debug_log
     io
 )
 
