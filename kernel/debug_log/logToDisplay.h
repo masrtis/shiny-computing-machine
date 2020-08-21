@@ -1,5 +1,5 @@
-#ifndef INCLUDED_KPRINT_H_
-#define INCLUDED_KPRINT_H_
+#ifndef INCLUDED_LOG_TO_DISPLAY_H_
+#define INCLUDED_LOG_TO_DISPLAY_H_
 
 #include "framebuffer.h"
 
@@ -59,4 +59,4 @@ void log_to_display(const Options& configuration, First toPrint, T... remainder)
 
 } // namespace debug_log
 
-#endif // INCLUDED_KPRINT_H_
+#endif // INCLUDED_LOG_TO_DISPLAY_H_

@@ -108,6 +108,24 @@ public:
         position.advance_column();
     }
 
+    constexpr Position get_position() const
+    {
+        return position;
+    }
+
+    constexpr void reverse(const Position& start, const Position& end)
+    {
+        auto startIndex = start.get_index();
+        auto lastIndex = end.get_index() - 1;
+
+        while (startIndex < lastIndex)
+        {
+            uint16_t temp = cells[startIndex];
+            cells[startIndex++] = cells[lastIndex];
+            cells[lastIndex--] = temp;
+        }
+    }
+
     void clear()
     {
         memset(cells, 0, FRAMEBUFFER_SIZE_IN_BYTES);
@@ -119,6 +137,8 @@ public:
         write_to_vga_memory();
         position.move_cursor();
     }
+
+
 private:
     void write_to_vga_memory() const
     {
@@ -164,16 +184,16 @@ constexpr uint16_t compute_cell(unsigned char output, vga_color fgColor, vga_col
     return static_cast<uint16_t>(output) | (get_color(fgColor, bgColor) << CHAR_BIT);
 }
 
+void write_cell(size_t row, size_t column, unsigned char output, vga_color fgColor, vga_color bgColor)
+{
+    framebuffer[get_index(row, column)] = compute_cell(output, fgColor, bgColor);
+}
+
 } // end namespace
 
 /*
  *  Interface functions
  */
-
-void write_cell(size_t row, size_t column, unsigned char output, vga_color fgColor, vga_color bgColor)
-{
-    framebuffer[get_index(row, column)] = compute_cell(output, fgColor, bgColor);
-}
 
 void move_cursor(size_t row, size_t column, vga_color fgColor)
 {
@@ -202,30 +222,64 @@ void clear()
     cpu_framebuffer.clear();
 }
 
-void write(const char* string, vga_color fgColor, vga_color bgColor)
+void write(char output, vga_color fgColor, vga_color bgColor)
 {
-    const auto len = strlen(string);
+    const bool isNewLine = output == '\n';
+    if (isNewLine || cpu_framebuffer.is_row_end())
+    {
+        cpu_framebuffer.advance_row();
+        if (output == '\n')
+        {
+            return;
+        }
+    }
+
+    cpu_framebuffer.write_cell(output, fgColor, bgColor);
+}
+
+void write(const char* output, vga_color fgColor, vga_color bgColor)
+{
+    const auto len = strlen(output);
 
     for (size_t i = 0; i < len; ++i)
     {
-        if (string[i] == '\n' || cpu_framebuffer.is_row_end())
-        {
-            cpu_framebuffer.advance_row();
-
-            if (string[i] == '\n')
-            {
-                continue;
-            }
-        }
-
-        cpu_framebuffer.write_cell(string[i], fgColor, bgColor);
+        write(output[i], fgColor, bgColor);
     }
 
     if (cpu_framebuffer.is_row_end())
     {
         cpu_framebuffer.advance_row();
     }
+}
 
+void write(size_t output, vga_color fgColor, vga_color bgColor)
+{
+    const auto start_of_number(cpu_framebuffer.get_position());
+
+    do
+    {
+        const char digit = (output % 10) + '0';
+        output /= 10;
+
+        write(digit, fgColor, bgColor);
+    } while(output != 0);
+
+    cpu_framebuffer.reverse(start_of_number, cpu_framebuffer.get_position());
+}
+
+void write(int output, vga_color fgColor, vga_color bgColor)
+{
+    if (output < 0)
+    {
+        write('-', fgColor, bgColor);
+        output = -output;
+    }
+
+    write(static_cast<size_t>(output), fgColor, bgColor);
+}
+
+void render()
+{
     cpu_framebuffer.render();
 }
 

@@ -29,16 +29,6 @@ enum class vga_color : uint8_t
     White = 15
 };
 
-/* write_cell: writes a character with specified foreground and background color to cell (row, column)
- * 
- * @param row Zero based row index of cell to write
- * @param column Zero based column index of cell to write
- * @param c The character to write into the buffer
- * @param fg Foreground color, specified as a vga_color
- * @param bg Background color, specified as a vga_color
- */
-void write_cell(size_t row, size_t column, unsigned char output, vga_color fgColor, vga_color bgColor);
-
 /* move_cursor: moves cursor to cell (row, column). Cursor will be rendered with foreground color on black background.
  * 
  * @param row Zero based row index of new cursor location
@@ -53,13 +43,46 @@ void move_cursor(size_t row, size_t column, vga_color fgColor);
 void clear();
 
 /*
- * write: writes a null terminated C style string to the framebuffer with specified foreground and background color
+ * write: writes a single character to the framebuffer with specified foreground and background color
  * 
- * @param string Buffer of characters to write to the screen
+ * @param output Character to write to the screen
  * @param fgColor Foreground color, specified as a vga_color
  * @param bgColor Background color, specified as a vga_color
  */
-void write(const char* string, vga_color fgColor, vga_color bgColor);
+void write(char output, vga_color fgColor, vga_color bgColor);
+
+/*
+ * write: writes a null terminated C style string to the framebuffer with specified foreground and background color
+ * 
+ * @param output Null terminated buffer of characters to write to the screen
+ * @param fgColor Foreground color, specified as a vga_color
+ * @param bgColor Background color, specified as a vga_color
+ */
+void write(const char* output, vga_color fgColor, vga_color bgColor);
+
+/*
+ * write: writes an integer to the framebuffer with specified foreground and background color
+ * 
+ * @param output Number to write to the screen
+ * @param fgColor Foreground color, specified as a vga_color
+ * @param bgColor Background color, specified as a vga_color
+ */
+void write(int output, vga_color fgColor, vga_color bgColor);
+
+/*
+ * write: writes a size_t to the framebuffer with specified foreground and background color
+ * 
+ * @param output Number to write to the screen
+ * @param fgColor Foreground color, specified as a vga_color
+ * @param bgColor Background color, specified as a vga_color
+ */
+void write(size_t output, vga_color fgColor, vga_color bgColor);
+
+
+/*
+ * render: writes CPU framebuffer memory to VGA memory
+ */
+void render();
 
 }
 

@@ -21,7 +21,7 @@ void memcmp_returns_zero_when_memory_equal()
     }
     else
     {
-        debug_log::log_to_display(debug_log::Options{debug_log::Severity::Error}, "memcmp_returns_zero_when_memory_equal failed\n");
+        debug_log::log_to_display(debug_log::Options{debug_log::Severity::Error}, "memcmp_returns_zero_when_memory_equal failed with actual = ", result, '\n');
     }
 }
 
@@ -37,7 +37,7 @@ void memcmp_returns_negative_1_when_first_argument_sorts_before_second()
     }
     else
     {
-        debug_log::log_to_display(debug_log::Options{debug_log::Severity::Error}, "memcmp_returns_negative_1_when_first_argument_sorts_before_second failed\n");
+        debug_log::log_to_display(debug_log::Options{debug_log::Severity::Error}, "memcmp_returns_negative_1_when_first_argument_sorts_before_second failed with actual = ", result, '\n');
     }
 }
 
@@ -53,7 +53,7 @@ void memcmp_returns_postive_1_when_first_argument_sorts_after_second()
     }
     else
     {
-        debug_log::log_to_display(debug_log::Options{debug_log::Severity::Error}, "memcmp_returns_postive_1_when_first_argument_sorts_after_second failed\n");
+        debug_log::log_to_display(debug_log::Options{debug_log::Severity::Error}, "memcmp_returns_postive_1_when_first_argument_sorts_after_second failed with actual = ", result, '\n');
     }
 }
 
@@ -66,7 +66,7 @@ void strlen_returns_zero_on_empty_string()
     }
     else
     {
-        debug_log::log_to_display(debug_log::Options{debug_log::Severity::Error}, "strlen_returns_zero_on_empty_string failed\n");
+        debug_log::log_to_display(debug_log::Options{debug_log::Severity::Error}, "strlen_returns_zero_on_empty_string failed with actual = ", length, '\n');
     }
 }
 
@@ -79,7 +79,7 @@ void strlen_returns_4_for_test_string()
     }
     else
     {
-        debug_log::log_to_display(debug_log::Options{debug_log::Severity::Error}, "strlen_returns_4_for_test_string failed\n");
+        debug_log::log_to_display(debug_log::Options{debug_log::Severity::Error}, "strlen_returns_4_for_test_string failed with actual = ", length, '\n');
     }
 }
 
