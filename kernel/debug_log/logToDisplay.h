@@ -29,7 +29,7 @@ public:
         switch (m_severity)
         {
         case Severity::Info:
-            return framebuffer::vga_color::White;
+            return framebuffer::vga_color::Light_Green;
         case Severity::Warning:
             return framebuffer::vga_color::Yellow;
         case Severity::Error:
@@ -38,7 +38,7 @@ public:
             return framebuffer::vga_color::Light_Magenta;
         }
 
-        return framebuffer::vga_color::Light_Green;
+        return framebuffer::vga_color::White;
     }
 
     const Severity m_severity = Severity::Info;

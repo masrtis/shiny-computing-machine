@@ -206,7 +206,7 @@ void write(const char* string, vga_color fgColor, vga_color bgColor)
 {
     const auto len = strlen(string);
 
-    for (size_t i = 0; i <= len; ++i)
+    for (size_t i = 0; i < len; ++i)
     {
         if (string[i] == '\n' || cpu_framebuffer.is_row_end())
         {

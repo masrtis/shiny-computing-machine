@@ -18,6 +18,9 @@ int memcmp(const void* lhs, const void* rhs, size_t count)
         {
             return -1;
         }
+
+        ++left;
+        ++right;
     }
 
     return 0;
@@ -67,7 +70,5 @@ size_t strlen(const char* str)
 
     }
 
-    // offset of two because onePastNullTerminator is pointing to the byte after the null terminator (-1)
-    // and do not include null terminator in string length
-    return onePastNullTerminator - str - 2;
+    return onePastNullTerminator - str - 1;
 }

@@ -30,11 +30,15 @@ add_subdirectory(io)
 # Level 1
 add_subdirectory(debug_log)
 
+# Level 2
+add_subdirectory(test)
+
 add_library(kernel
     kmain.cpp
 )
 
 target_link_libraries(kernel PUBLIC
+    crt_test
     debug_log
     io
 )
