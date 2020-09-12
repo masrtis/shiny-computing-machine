@@ -189,6 +189,16 @@ void write_cell(size_t row, size_t column, unsigned char output, vga_color fgCol
     framebuffer[get_index(row, column)] = compute_cell(output, fgColor, bgColor);
 }
 
+template <typename Numeric>
+void write_digit(Numeric& number, unsigned int base, vga_color fgColor, vga_color bgColor)
+{
+    Numeric onesPlace = number % base;
+    const char digit = onesPlace > 10 ? (onesPlace - 10 + 'A') : (onesPlace + '0');
+    number /= base;
+
+    write(digit, fgColor, bgColor);
+}
+
 } // end namespace
 
 /*
@@ -245,23 +255,20 @@ void write(const char* output, vga_color fgColor, vga_color bgColor)
     {
         write(output[i], fgColor, bgColor);
     }
-
-    if (cpu_framebuffer.is_row_end())
-    {
-        cpu_framebuffer.advance_row();
-    }
 }
 
 void write(size_t output, vga_color fgColor, vga_color bgColor)
+{
+    write(output, fgColor, bgColor, radix::Decimal);
+}
+
+void write(size_t output, vga_color fgColor, vga_color bgColor, radix base)
 {
     const auto start_of_number(cpu_framebuffer.get_position());
 
     do
     {
-        const char digit = (output % 10) + '0';
-        output /= 10;
-
-        write(digit, fgColor, bgColor);
+        write_digit(output, static_cast<unsigned int>(base), fgColor, bgColor);
     } while(output != 0);
 
     cpu_framebuffer.reverse(start_of_number, cpu_framebuffer.get_position());
@@ -280,6 +287,11 @@ void write(int output, vga_color fgColor, vga_color bgColor)
 
 void render()
 {
+    if (cpu_framebuffer.is_row_end())
+    {
+        cpu_framebuffer.advance_row();
+    }
+
     cpu_framebuffer.render();
 }
 

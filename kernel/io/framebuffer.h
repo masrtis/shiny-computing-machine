@@ -29,6 +29,12 @@ enum class vga_color : uint8_t
     White = 15
 };
 
+enum class radix : uint8_t
+{
+    Decimal = 10,
+    Hexadecimal = 16
+};
+
 /* move_cursor: moves cursor to cell (row, column). Cursor will be rendered with foreground color on black background.
  * 
  * @param row Zero based row index of new cursor location
@@ -70,7 +76,7 @@ void write(const char* output, vga_color fgColor, vga_color bgColor);
 void write(int output, vga_color fgColor, vga_color bgColor);
 
 /*
- * write: writes a size_t to the framebuffer with specified foreground and background color
+ * write: writes a size_t (as base 10) to the framebuffer with specified foreground and background color
  * 
  * @param output Number to write to the screen
  * @param fgColor Foreground color, specified as a vga_color
@@ -78,6 +84,30 @@ void write(int output, vga_color fgColor, vga_color bgColor);
  */
 void write(size_t output, vga_color fgColor, vga_color bgColor);
 
+/*
+ * write: writes a size_t to the framebuffer with specified foreground and background color
+ * 
+ * @param output Number to write to the screen
+ * @param fgColor Foreground color, specified as a vga_color
+ * @param bgColor Background color, specified as a vga_color
+ * @param base Decimal (10) or Hexadecimal (16) supported
+ */
+void write(size_t output, vga_color fgColor, vga_color bgColor, radix base);
+
+/*
+ * write: writes a pointer valueto the framebuffer with specified foreground and background color
+ * 
+ * @param output Pointer to write to the screen
+ * @param fgColor Foreground color, specified as a vga_color
+ * @param bgColor Background color, specified as a vga_color
+ */
+template <typename T>
+void write(const T* output, vga_color fgColor, vga_color bgColor)
+{
+    static_assert(sizeof(uintptr_t) >= sizeof(output));
+    write("0x", fgColor, bgColor);
+    write(reinterpret_cast<uintptr_t>(output), fgColor, bgColor);
+}
 
 /*
  * render: writes CPU framebuffer memory to VGA memory

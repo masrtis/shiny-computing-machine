@@ -3,7 +3,7 @@ add_library(debug_log
 )
 
 target_link_libraries(debug_log PUBLIC
-    crt
+    freestanding
     io
 )
 

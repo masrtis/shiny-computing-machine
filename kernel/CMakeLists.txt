@@ -24,7 +24,7 @@ target_link_libraries(kernel_cxx_build_options INTERFACE
 )
 
 # Level 0
-add_subdirectory(crt)
+add_subdirectory(freestanding)
 add_subdirectory(io)
 
 # Level 1

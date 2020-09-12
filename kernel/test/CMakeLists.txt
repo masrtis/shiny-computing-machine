@@ -3,7 +3,7 @@ add_library(crt_test
 )
 
 target_link_libraries(crt_test PUBLIC
-    crt
+    freestanding
     debug_log
 )
 

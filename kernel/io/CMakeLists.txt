@@ -1,5 +1,6 @@
 add_library(io
     framebuffer.cpp
+    stdio.cpp
 )
 
 add_library(io_asm
@@ -15,7 +16,7 @@ target_include_directories(io_asm PUBLIC
 )
 
 target_link_libraries(io PUBLIC
-    crt
+    freestanding
     io_asm
 )
 

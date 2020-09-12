@@ -93,7 +93,6 @@ void run_all_tests()
 
     strlen_returns_zero_on_empty_string();
     strlen_returns_4_for_test_string();
-
 }
 
 } // namespace test
