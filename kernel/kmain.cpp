@@ -1,4 +1,6 @@
 #include "framebuffer.h"
+#include "serial.h"
+
 #include "logToDisplay.h"
 
 #include "string_test.h"
@@ -6,6 +8,7 @@
 extern "C" int kmain()
 {
     framebuffer::clear();
+    serial::init_com1();
 
     test::run_all_tests();
 
