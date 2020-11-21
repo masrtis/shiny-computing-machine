@@ -1,25 +1,18 @@
 #ifndef INCLUDED_LOG_TO_DISPLAY_H_
 #define INCLUDED_LOG_TO_DISPLAY_H_
 
+#include "logOptions.h"
+
 #include "framebuffer.h"
 
 namespace debug_log
 {
 
-enum class Severity : uint8_t
+struct DisplayOptions : public LogOptions
 {
-    Info,
-    Warning,
-    Error,
-    Fatal
-};
-
-struct Options
-{
-public:
-    constexpr Options() = default;
-    constexpr explicit Options(Severity category)
-        : m_severity(category)
+    constexpr DisplayOptions() = default;
+    constexpr explicit DisplayOptions(Severity category)
+        : LogOptions(category)
     {
 
     }
@@ -40,18 +33,16 @@ public:
 
         return framebuffer::vga_color::White;
     }
-
-    const Severity m_severity = Severity::Info;
 };
 
 template <typename T>
-void log_to_display(const Options& configuration, T toPrint)
+void log_to_display(const DisplayOptions& configuration, T toPrint)
 {
     framebuffer::write(toPrint, configuration.get_foreground_color(), framebuffer::vga_color::Black);
 }
 
 template <typename First, typename... T>
-void log_to_display(const Options& configuration, First toPrint, T... remainder)
+void log_to_display(const DisplayOptions& configuration, First toPrint, T... remainder)
 {
     log_to_display(configuration, toPrint);
     log_to_display(configuration, remainder...);

@@ -12,7 +12,7 @@ extern "C" int kmain()
 
     test::run_all_tests();
 
-    debug_log::log_to_display(debug_log::Options(debug_log::Severity::Fatal), "Halted!\n");
+    debug_log::log_to_display(debug_log::DisplayOptions(debug_log::Severity::Fatal), "Halted!\n");
 
     framebuffer::render();
 

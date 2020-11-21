@@ -1,4 +1,5 @@
 add_library(debug_log
+    logOptions.cpp
     logToDisplay.cpp
 )
 
