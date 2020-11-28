@@ -1,6 +1,7 @@
 #include "framebuffer.h"
 
 #include "io.h"
+#include "numericToChar.h"
 
 #include "string.h"
 
@@ -137,8 +138,6 @@ public:
         write_to_vga_memory();
         position.move_cursor();
     }
-
-
 private:
     void write_to_vga_memory() const
     {
@@ -190,13 +189,9 @@ void write_cell(size_t row, size_t column, unsigned char output, vga_color fgCol
 }
 
 template <typename Numeric>
-void write_digit(Numeric& number, unsigned int base, vga_color fgColor, vga_color bgColor)
+void write_digit(Numeric& number, numeric::radix base, vga_color fgColor, vga_color bgColor)
 {
-    Numeric onesPlace = number % base;
-    const char digit = onesPlace > 10 ? (onesPlace - 10 + 'A') : (onesPlace + '0');
-    number /= base;
-
-    write(digit, fgColor, bgColor);
+    write_digit(number, base, [fgColor, bgColor](char c){ write(c, fgColor, bgColor); });
 }
 
 } // end namespace
@@ -230,6 +225,7 @@ void clear()
 {
     memset(framebuffer, 0, Data::FRAMEBUFFER_SIZE_IN_BYTES);
     cpu_framebuffer.clear();
+    cpu_framebuffer.render();
 }
 
 void write(char output, vga_color fgColor, vga_color bgColor)
@@ -259,16 +255,16 @@ void write(const char* output, vga_color fgColor, vga_color bgColor)
 
 void write(size_t output, vga_color fgColor, vga_color bgColor)
 {
-    write(output, fgColor, bgColor, radix::Decimal);
+    write(output, fgColor, bgColor, numeric::radix::Decimal);
 }
 
-void write(size_t output, vga_color fgColor, vga_color bgColor, radix base)
+void write(size_t output, vga_color fgColor, vga_color bgColor, numeric::radix base)
 {
     const auto start_of_number(cpu_framebuffer.get_position());
 
     do
     {
-        write_digit(output, static_cast<unsigned int>(base), fgColor, bgColor);
+        write_digit(output, base, fgColor, bgColor);
     } while(output != 0);
 
     cpu_framebuffer.reverse(start_of_number, cpu_framebuffer.get_position());

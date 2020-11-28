@@ -1,5 +1,6 @@
 add_library(io
     framebuffer.cpp
+    numericToChar.cpp
     serial.cpp
     stdio.cpp
 )

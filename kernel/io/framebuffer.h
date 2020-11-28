@@ -1,6 +1,8 @@
 #ifndef INCLUDED_FRAMEBUFFER_H_
 #define INCLUDED_FRAMEBUFFER_H_
 
+#include "numericToChar.h"
+
 #include <stddef.h>
 #include <stdint.h>
 
@@ -27,12 +29,6 @@ enum class vga_color : uint8_t
     Light_Magenta = 13,
     Yellow = 14,
     White = 15
-};
-
-enum class radix : uint8_t
-{
-    Decimal = 10,
-    Hexadecimal = 16
 };
 
 /* move_cursor: moves cursor to cell (row, column). Cursor will be rendered with foreground color on black background.
@@ -92,10 +88,10 @@ void write(size_t output, vga_color fgColor, vga_color bgColor);
  * @param bgColor Background color, specified as a vga_color
  * @param base Decimal (10) or Hexadecimal (16) supported
  */
-void write(size_t output, vga_color fgColor, vga_color bgColor, radix base);
+void write(size_t output, vga_color fgColor, vga_color bgColor, numeric::radix base);
 
 /*
- * write: writes a pointer valueto the framebuffer with specified foreground and background color
+ * write: writes a pointer value to the framebuffer with specified foreground and background color
  * 
  * @param output Pointer to write to the screen
  * @param fgColor Foreground color, specified as a vga_color
